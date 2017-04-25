@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Git issue creator</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+
+    #root {
+      margin-top: 20%;
+      margin-left: 45%;
+    }
+
+    .modal-dialog {
+      padding-top: 10%;
+    }
+
+    .modal-content, .col-md-9, .btn {
+        background-color: #c0d5f7;
+        border: 2px solid black;
+    }
+
+    .modal-content, .modal-content * {
+        border-radius: 0;
+    }
+
+    .modal-header, .modal-footer {
+        border: none;
+    }
+
+</style>
+
+<body>
+
+    <a id="root" href="#createIssueDialog" class="btn btn-primary btn-lg" data-toggle="modal">Create new Git issue</a>
+
+    <div id="createIssueDialog" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Create an Issue</b></h4>
+                </div>
+                <form id="issueCreation">
+                    <div class="modal-body">
+
+                        <div class="container col-md-12">
+                            <div class="row">
+                                <label class="col-md-2">Title</label>
+                                <input type="text" class="col-md-9" name="title" required>
+                                <div class="col-md-1"></div>
+                            </div>
+                            <div class="row" style="margin-top: 6px;">
+                                <label class="col-md-2">Body</label>
+                                <textarea rows="8" class="col-md-9" name="body" required></textarea>
+                                <div class="col-md-1"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <div class="container col-md-12">
+                            <div class="row" style="margin-top: 12px;">
+                                <div id="result" class="col-md-7"></div>
+                                <button class="btn col-md-2" style="transform: translateX(-4px);" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn col-md-2" style="margin-left: 0;">Create</button>
+                                <div class="col-md-1"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(() => {
+            $('#issueCreation').on('submit', (e) => {
+                e.preventDefault();
+
+                $('#result').html('')
+
+                $.ajax({
+                    url: '/createIssue',
+                    type: 'GET',
+                    data: $('#issueCreation').serialize(),
+                    error: (xhr) => {
+                        $('#result').css('color', 'red')
+                        $('#result').html(xhr.responseText)
+                    },
+                    success: (data) => {
+                        $('#result').css('black')
+                        $('#result').html(data)
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
