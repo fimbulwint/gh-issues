@@ -1,7 +1,8 @@
 # gh-issues
 
- Run with an IDE or build from command line using:
-  > mvn clean package
+ Run with an IDE or build from command line using: `mvn clean package`
+
+ Backend runs on port `8080` and the the endpoint's path for issue creation is `/createIssue`
 
  Required parameters in the environment:
    * &lt;username&gt;: The owner of the repository
