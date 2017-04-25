@@ -28,7 +28,7 @@ public class IssueService {
 
   public void createIssue(Issue issue) throws UnirestException {
     Unirest.post(ISSUE_CREATION_URL)
-        .header("accept", "application/vnd.github.v3+json")
+        .header("Accept", "application/vnd.github.v3+json")
         .basicAuth(ghCreds.getUsername(), ghCreds.getPass())
         .routeParam("repoOwner", ghCreds.getUsername())
         .routeParam("repo", repo)
